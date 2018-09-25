@@ -1,0 +1,6 @@
+/Users/vladislavkolupaev/Desktop/Labs/c#/lab1/lab1/bin/Debug/lab1.exe
+/Users/vladislavkolupaev/Desktop/Labs/c#/lab1/lab1/bin/Debug/lab1.pdb
+/Users/vladislavkolupaev/Desktop/Labs/c#/lab1/lab1/obj/x86/Debug/lab1.csprojAssemblyReference.cache
+/Users/vladislavkolupaev/Desktop/Labs/c#/lab1/lab1/obj/x86/Debug/lab1.csproj.CoreCompileInputs.cache
+/Users/vladislavkolupaev/Desktop/Labs/c#/lab1/lab1/obj/x86/Debug/lab1.exe
+/Users/vladislavkolupaev/Desktop/Labs/c#/lab1/lab1/obj/x86/Debug/lab1.pdb
