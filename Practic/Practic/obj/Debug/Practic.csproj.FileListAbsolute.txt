@@ -1,0 +1,10 @@
+C:\Users\Negrime\Desktop\labs\Csharp\Practic\Practic\bin\Debug\Practic.exe.config
+C:\Users\Negrime\Desktop\labs\Csharp\Practic\Practic\bin\Debug\Practic.exe
+C:\Users\Negrime\Desktop\labs\Csharp\Practic\Practic\bin\Debug\Practic.pdb
+C:\Users\Negrime\Desktop\labs\Csharp\Practic\Practic\obj\Debug\Practic.csprojAssemblyReference.cache
+C:\Users\Negrime\Desktop\labs\Csharp\Practic\Practic\obj\Debug\Practic.Form1.resources
+C:\Users\Negrime\Desktop\labs\Csharp\Practic\Practic\obj\Debug\Practic.Properties.Resources.resources
+C:\Users\Negrime\Desktop\labs\Csharp\Practic\Practic\obj\Debug\Practic.csproj.GenerateResource.cache
+C:\Users\Negrime\Desktop\labs\Csharp\Practic\Practic\obj\Debug\Practic.csproj.CoreCompileInputs.cache
+C:\Users\Negrime\Desktop\labs\Csharp\Practic\Practic\obj\Debug\Practic.exe
+C:\Users\Negrime\Desktop\labs\Csharp\Practic\Practic\obj\Debug\Practic.pdb
