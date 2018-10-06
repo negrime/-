@@ -74,7 +74,7 @@ namespace _000
     class Vector
     {
         private bool Decart; //вид координат 
-        private double x, y, z; //координаты в ДСК 
+        public double x, y, z; //координаты в ДСК 
         private double r, p; //координаты в ПСК (расстояние, угол) 
         public Vector(double x, double y)
         {
@@ -94,18 +94,19 @@ namespace _000
                 Console.WriteLine("r={0} p={1}}", V.r, V.p);
         }
         //из декартовой в полярную 
-        public void DecartToPolar(Vector V)
+         public void DecartToPolar(Vector V)
         {
-            V.r = Math.Sqrt(V.x * V.x + V.y + V.y);
+            V.r = Math.Sqrt(V.x * V.x + V.y * V.y);
             V.p = (Base.Compare(V.r, 0) == 0) ? 0 : Math.Asin(V.y / Math.Sqrt(V.r));
-            Decart = false;
+            V.Decart = false;
         }
         //из полярной в декартовую 
-        public void PolarToDecart(Vector V)
+         public void PolarToDecart(Vector V)
         {
             V.x = V.r * Math.Cos(V.p);
             V.y = V.r * Math.Sin(V.p);
-            Decart = true;
+            V.Decart = true;
+          //  Decart = true;
         }
         //вектор через точки 
         public Vector(Point A, Point B)
@@ -140,12 +141,11 @@ namespace _000
             return V1.x * V2.x + V1.y * V2.y;
         }
         //векторное произведение 
-        static public Vector VectorMultiply(Vector V1, Vector V2)
+        static public double VectorMultiply(Vector V1, Vector V2)
         {
-            Vector result = new Vector(0, 0)
-            {
-                z = V1.x * V2.y - V1.y * V2.x
-            };
+           
+
+            double result = (V1.x * V2.y) - (V1.y * V2.x);
             return result;
         }
 
@@ -154,7 +154,9 @@ namespace _000
     {
         static void Main(string[] args)
         {
+            
             double x1, y1;
+            
             //ввод координат А 
             Console.Write("Введите координату x первой точки: ");
             string str = Console.ReadLine();
@@ -206,10 +208,7 @@ namespace _000
                 Console.WriteLine(exc.Message);
                 x2 = 0;
             }
-            Console.Write("Введите
-            
-
-            координату y второй точки: "); 
+            Console.Write("Введите координату y второй точки: "); 
             str = Console.ReadLine();
             try
             {
@@ -225,8 +224,20 @@ namespace _000
                 Console.WriteLine(exc.Message);
                 y2 = 0;
             }
-            Console.Write("Расстояние между точками: ");
-            Console.WriteLine(Point.Distance(new Point(x1, y1), new Point(x2, y2)));
+            Vector a = new Vector(x1, y1);
+            //   Console.Write("Расстояние между точками: ");
+            //  Console.WriteLine(Point.Distance(new Point(x1, y1), new Point(x2, y2)));
+
+            a.DecartToPolar(a);
+            Console.WriteLine(a.x + " " + a.y);
+            a.PolarToDecart(a);
+            Console.WriteLine(a.x + " " + a.y);
+
+
+
+            Console.ReadLine();
+
+            
         }
     }
 }

@@ -89,6 +89,7 @@ namespace Task
             }
             else Console.WriteLine("Не все интервалы имеют концы");
             Console.ReadLine();
+            
         }
     }
 }
