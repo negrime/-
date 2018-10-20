@@ -43,7 +43,6 @@ namespace lab4
                                 Console.WriteLine($"{m[j, i]} Column {i + 1} ");
                                 res[r] = m[j, i];
                                 r++;
-
                             }                          
                         }
                     }
@@ -65,7 +64,7 @@ namespace lab4
 
         public static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+          
             Console.WriteLine("Input matrix size");
             int size = int.Parse(Console.ReadLine());
             int[,] m = new int[size, size];
