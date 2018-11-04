@@ -15,13 +15,10 @@ namespace lab4
             Random rnd = new Random();
             for (int i = 0; i < size; i++)
             {
-                //Console.WriteLine($"Input numbers {i + 1} raw");
                 for (int j = 0; j < size; j++)
                 {
-                    //m[i, j] = rnd.Next(-9, 10);
+                    m[i, j] = rnd.Next(-1, 4);
                     Console.Write(m[i, j] + "\t");
-                   // Console.WriteLine($"Input MATRIX {i + 1}, {j + 1}");
-
                 }
                 Console.WriteLine();
             }
@@ -45,7 +42,7 @@ namespace lab4
         public static int[] Task(int i, ref int[,] m, out int resSize, int size, ref bool  repeat)
         {
             int[] res = new int[size];
-            resSize = 0;
+            resSize = -1;
             
             
             for (int j = 0; j < size; j++)
@@ -61,9 +58,7 @@ namespace lab4
                     {
                         if (Check(m[j, i], ref res, resSize))
                         {
-                            //resSize++;
-                            // Array.Resize(ref res, res.Length + 1);
-                            // resSize++;
+              
                             res[resSize] = m[j, i];
 
                         }
@@ -75,12 +70,10 @@ namespace lab4
             return res;
                      
         }
-      
-
         public static void Main(string[] args)
         {
           
-            Console.WriteLine("Input matrix size");
+            Console.WriteLine("Введите размер матрицы");
             int size = int.Parse(Console.ReadLine());
             Console.Clear();
             int[,] m = new int[size, size];
@@ -93,15 +86,26 @@ namespace lab4
             {
                 bool repeat = false;
                 result = Task(i, ref m,out resultSize, size, ref repeat);
+                Console.BackgroundColor = ConsoleColor.Black;
                 Console.WriteLine($"[{i + 1}] Столбец");
-                for (int j = 0; j < result.Length; j++)
+                if (!repeat)
                 {
-                    if(result[j] > 0 && !repeat)
-                    Console.WriteLine(result[j]);                    
+                    for (int j = 0; j < result.Length; j++)
+                    {
+                        if (result[j] > 0)
+                        {
+                            Console.BackgroundColor = ConsoleColor.DarkGreen;
+                            Console.WriteLine(result[j]);
+                        }
+                    }
+                }
+                else
+                {
+                    Console.BackgroundColor = ConsoleColor.DarkRed;
+                    Console.WriteLine("Не имеет не повоторяющиеся положительные");
                 }
                 Console.WriteLine();
             }
-           // Task(m, size, out result);
             Console.ReadLine();
         }
            
