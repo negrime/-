@@ -3,525 +3,449 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+/*БАЗОВЫЕ ПРОЦЕДУРЫ 
+1) Сравнение вещественных чисел (строго больше, строго меньше, равно, больше или равно, меньше или равно) 
 
-namespace Laba1
+ТОЧКА 
+1) задать тип данных - точка на плоскости (в декартовой системе координат) 
+2) проверка двух точек на совпадение 
+3) вычисление расстояния между двумя точками на плоскости 
+
+ВЕКТОР 
+1) задать тип данных - вектор на плоскости (в декартовой системе координат, в полярной системе координат) 
+2) операция перевода из декартовой системы координат в полярную и обратно 
+3) построить вектор по координатам двух точек 
+4) сумма двух векторов 
+5) разность двух векторов 
+6) умножение вектора на число 
+7) скалярное произведение 
+8) векторное произведение */
+
+namespace ConsoleApp3
 {
-
-    class Basa  //базовые функции
+    public class Compare //Сравнение вещественных чисел (строго больше, строго меньше, равно, больше или равно, меньше или равно) 
     {
-        private const double E = 1E-5; //эпсилон
+        public const double eps = 1e-3;
+        public double x, y;
 
-        //функция сравнения двух вещественных чисел, возвращает 0 если числа равны
-        // 1 - если первое число больше, -1 - если второе число больше
-        // Строго больше Comparison(a,b) > 0
-        // Строго равно Comparison(a,b) = 0
-        // Строго меньше Comparison(a,b) < 0
-        // Больше или равно Comparison(a,b) > -1
-        // Меньше или равно Comparison(a,b) < 1
-        static public int Comparison(double d1, double d2)
+        public static bool RealEq(double x, double y) //строго равно
         {
-            double difference = d1 - d2;    //разность первого и второго числа
-            if (Math.Abs(difference) <= E)   //если разность по модулю меньше эпсилона
-                return 0;   //считать числа равными 
-            //иначе
-            if (difference > 0) //если разница больше 0 
-                return 1;   //то первое число больше
-            //иначе
-            return -1;  //второе чило больше             
+            return ((Math.Abs(x - y) < eps) && (x * y >= 0));
+        }
+        public static bool RealMore(double x, double y) //строго больше
+        {
+            return (x - y > eps);
+        }
+        public static bool RealLess(double x, double y) //строго меньше 
+        {
+            return (x - y < -eps);
+        }
+        public static bool RealMoreEq(double x, double y) // x больше или равно y
+        {
+            return (x - y >= 0); // && (x - y < eps));
+        }
+        public static bool RealLessEq(double x, double y) //x меньше или равно y
+        {
+            return ((x - y <= 0) && (x - y < -eps));
+        }
+        public static double RealMin(double x, double y)
+        {
+            if (x - y > 0) return y;
+            else return x;
         }
 
-        //Максимальное из двух вещественных чисел
-        static public double Max(double a, double b)
+        public static double RealMax(double x, double y)
         {
-            if (Comparison(a, b) > 0)
-                return a;
-            return b;
+            if (y - x > 0) return y;
+            else return x;
+        }
+        public void Result(double x, double y)
+        {
+            if (RealEq(x, y)) Console.WriteLine("{0:F2} {1:F2} {2:F2}", x, " = ", y);
+            else if (RealMore(x, y)) Console.WriteLine("{0:F2} {1:F2} {2:F2}", x, " > ", y);
+            else if (RealLess(x, y)) Console.WriteLine("{0:F2} {1:F2} {2:F2}", x, " < ", y);
+            else if (RealMoreEq(x, y)) Console.WriteLine("{0:F2} {1:F2} {2:F2}", x, " >= ", y);
+            else if (RealLessEq(x, y)) Console.WriteLine("{0:F2} {1:F2} {2:F2}", x, " <= ", y);
         }
 
-        //Минимальное из двух вещественных чисел
-        static public double Min(double a, double b)
-        {
-            if (Comparison(a, b) > 0)
-                return b;
-            return a;
-        }
     }
+    /*  ТОЧКА 
+               1) задать тип данных - точка на плоскости(в декартовой системе координат)
+               2) проверка двух точек на совпадение 
+               3) вычисление расстояния между двумя точками на плоскости 
+    */
+    public class Point
 
-    class Point //класс точка (в декартовой системе координат)
     {
-        public double x, y;    //координаты точки
-
-        public double X
+        const double eps = 1e-3;
+        public double x, y;
+        public Point(double a, double b)
         {
-            get
+            x = a;
+            y = b;
+        }
+
+        public Point()
+        {
+            InputCoord("Введите координаты точки");
+        }
+        public void InputCoord(string s)
+        {
+            Console.WriteLine(s);
+            this.x = Convert.ToDouble(Console.ReadLine());
+            this.y = Convert.ToDouble(Console.ReadLine());
+        }
+
+
+        public bool IsSeem(Point p1, Point p2) //проверка точек на совпадение
+        {
+            return Compare.RealEq(p1.x, p2.x) && Compare.RealEq(p1.y, p2.y);
+        }
+
+        public double Dist(Point p1)
+        {
+            if (IsSeem(this, p1))
             {
-                return x;
+                return 0;
             }
-            set
-            {
-                x = value;
-            }
-
-        }
-
-        public double Y
-        {
-            get
-            {
-                return y;
-            }
-            set
-            {
-                y = value;
-            }
-
-        }
-
-        //конструктор класса
-        public Point(double x, double y)
-        {
-            this.x = x;
-            this.y = y;
-        }
-
-        public void Display()
-        {
-            Console.WriteLine("x = {0} y = {1}", x, y);
-        }
-
-        //точка с координатами (0,0)
-        public static Point ZeroPnt = new Point(0, 0);
-
-        //проверка двух точек на совпадение 
-        static public bool EqPoint(Point A, Point B)
-        {
-            return (Basa.Comparison(A.x, B.x) == 0) && (Basa.Comparison(A.y, B.y) == 0);
-        }
-        //вычисление расстояния между двумя точками на плоскости
-        static public double Dist(Point A, Point B)
-        {
-            return Math.Sqrt(Math.Pow(A.x - B.x, 2) + Math.Pow(A.y - B.y, 2));
-        }
-
-        public static explicit operator Point(double v)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    class Vector //класс вектор
-    {
-        private bool Cartesian; //переменная отвечает за то в какой системе задан вектор
-        //вектор в декартовой системе координат
-        public double x, y, z;
-        //вектор в полярной системе координат
-        private double r;   //расстояние
-        private double p;   //угол
-        //конструктор вектора 
-        public Vector(double x, double y, double z = 0)
-        {
-            this.x = x;
-            this.y = y;
-            this.z = z;
-            Cartesian = true;
-        }
-        //вывод вектора
-        static public void OutPutVector(Vector V)
-        {
-            if (V.Cartesian)
-                Console.WriteLine("({0};{1}" + ((Basa.Comparison(V.z, 0) == 0) ? ")" : ";{2})"), V.x, V.y, V.z);
             else
-                Console.WriteLine("r ={0}; p = {1}", V.r, V.p);
-
-        }
-
-        //операция перевода из декартовой системы координат в полярную 
-        public void CartesianToPolar(Vector V)
-        {
-            V.r = Math.Sqrt(V.x * V.x + V.y * V.y); //расстояние
-            V.p = (Basa.Comparison(V.r, 0) == 0) ? 0 : Math.Asin(V.y / Math.Sqrt(V.r));  //угол
-            Cartesian = false;
-        }
-
-        //операция перевода из полярной системы координат в декартову 
-        public void PolarToCartesian(Vector V)
-        {
-            V.x = V.r * Math.Cos(p);
-            V.y = V.r * Math.Sin(p);
-            Cartesian = true;
-        }
-
-        // построить вектор по координатам двух точек
-        public Vector(Point A, Point B)
-        {
-            this.x = B.X - A.X;
-            this.y = B.Y - A.Y;
-            Cartesian = true;
-        }
-
-        //сумма векторов
-        static public Vector Addition(Vector V1, Vector V2)
-        {
-            Vector V3 = new Vector(V1.x + V2.x, V1.y + V2.y);
-            return V3;
-        }
-        //разность двух векторов 
-        static public Vector Subtraction(Vector V1, Vector V2)
-        {
-            Vector V3 = new Vector(V1.x - V2.x, V1.y - V2.y);
-            return V3;
-        }
-        //умножение вектора на число
-        static public void Multiplication(Vector V1, double k)
-        {
-            V1.x = V1.x * k;
-            V1.y = V1.y * k;
-        }
-        //скалярное произведение двух векторов
-        static public double Scalar(Vector V1, Vector V2)
-        {
-            return V1.x * V2.x + V1.y * V2.y;
-        }
-        //векторное произведение двух векторов - возвразает трехмерный вектор
-        static public Vector VectorMultiplication(Vector V, Vector W)
-        {
-            Vector result = new Vector(0, 0)
             {
-                z = V.x * W.y - V.y * W.x
-            };
-            return result;
+                return Math.Sqrt((this.x - p1.x) * (this.x - p1.x) + (this.y - p1.y) * (this.y - p1.y));
+            }
         }
-
-        static public double VectorMultiplication2(Vector V, Vector W)
+        public bool BelongsToSegment(Point a, Point b)
         {
-            return V.x * W.y - V.y * W.x;
+
+            return (Compare.RealMoreEq(this.x, a.x) && Compare.RealMoreEq(this.y, a.y) && Compare.RealLessEq(this.x, b.x) && Compare.RealLessEq(this.y, b.y));
+        }
+    }
+
+    public class Vector
+    /* ВЕКТОР 
+    1) задать тип данных - вектор на плоскости(в декартовой системе координат, в полярной системе координат)
+    2) операция перевода из декартовой системы координат в полярную и обратно
+    3) построить вектор по координатам двух точек
+    4) сумма двух векторов 
+    5) разность двух векторов 
+    6) умножение вектора на число
+    7) скалярное произведение
+    8) векторное произведение */
+    {
+        public double a, b;
+
+        public Vector(Point p1, Point p2)
+        {
+            this.a = p2.x - p1.x;
+            this.b = p2.y - p1.y;
+        }
+        public Vector()
+        {
+            Point p1 = new Point();
+            Point p2 = new Point();
+            this.a = p2.x - p1.x;
+            this.b = p2.y - p1.y;
+        }
+        public Point Sum(Vector v2)
+        {
+            Point s = new Point(0, 0);
+            s.x = this.a + v2.a;
+            s.y = this.b + v2.b;
+            return (s);
+        }
+        public Point Substr(Vector v2)
+        {
+            Point s = new Point(0, 0);
+            s.x = v2.a - this.a;
+            s.y = v2.b - this.b;
+            return (s);
+        }
+        public Point Mult(double m)
+        {
+            Point pm = new Point(0, 0);
+            pm.x = m * this.a;
+            pm.y = m * this.b;
+            return (pm);
+        }
+        public double MultScal(Vector v2)
+        {
+            double mscal;
+            mscal = this.a * v2.a + this.b * v2.b;
+            return mscal;
+        }
+        public double MultVect(Vector v2)
+        {
+            double mVect;
+            mVect = this.a * v2.b - this.b * v2.a;
+            return mVect;
+        }
+        public bool RealEq(double x, double y) //строго равно
+        {
+            const double eps = 1e-3;
+            return (Math.Abs(x - y) < eps);
+        }
+        public bool RealLess(double x, double y) //строго меньше
+        {
+            const double eps = 1e-3;
+            return (x - y < eps);
+        }
+        public double GetAngle(Vector v1) //угол в радианах
+        {
+            double rs, c;
+            rs = Math.Sqrt(Math.Pow(a, 2) + Math.Pow(b, 2));
+            if (RealEq(rs, 0)) return 0;
+            else
+            {
+                c = a / rs;
+                if (RealEq(c, 0)) c = Math.PI / 2;
+                else c = Math.Atan(Math.Sqrt(Math.Abs(1 - Math.Pow(c, 2))) / c);
+                if (RealLess(c, 0)) c = Math.PI + c;
+                if (RealLess(b, 0)) c = 2 * Math.PI - c;
+                return c;
+            }
+        }
+        public Point CartToPol()
+        {
+            Point pc = new Point(0, 0);
+            pc.x = Math.Sqrt(Math.Pow(this.a, 2) + Math.Pow(this.b, 2));
+            pc.y = GetAngle(this);
+            return pc;
         }
 
     }
+    class PolVect
+    {
+        public double r, angle;
+        public PolVect()
+        {
+            InputCoord("Введите координаты вектора");
+        }
+        public void InputCoord(string s)
+        {
+            Console.WriteLine(s);
+            this.r = Convert.ToDouble(Console.ReadLine());
+            this.angle = Convert.ToDouble(Console.ReadLine());
+        }
+        public PolVect(double r, double angle)
+        {
+            this.r = r;
+            this.angle = angle;
 
-    //---------------------------------------------------------------------------------
-    //Прямая линия и отрезок прямой
-    //1) Задать тип данных - прямая на плоскости
-    //2) Прямая по координатам двух точек
-    //3) Принадлежность точки прямой
-    //4) Существование точки пересечения двух прямых   
-    //5) Точка пересечения двух прямых
-    //6) Точка пересечения двух отрезков
-    //7) Даны два отрезка на плоскости, заданные координатами своих концов.
-    //   определить их взаимное расположение   
-    //---------------------------------------------------------------------------------
-    //класс прямая
+        }
+        public Point PolToCart()
+        {
+            Point pc = new Point(0, 0);
+            pc.x = this.r * Math.Cos(this.angle);
+            pc.y = this.r * Math.Sin(this.angle);
+            return pc;
+        }
+    }
+
+
+
+
+    /*  ПРЯМАЯ
+        1) задать тип данных прямая на плоскости +
+        2) прямая по координатам двух точек +
+        3) принадлежность точки прямой +
+        4) существование точки пересчения двух прямых +
+        5) точка пересечения двух прямых +                  */
     class Line
     {
-        private double A, B, C; //коэффициенты уравнения прямой A*x + B*y + C = 0 
+        public double a, b, c;
 
-        //Прямая по координатам двух точек
-        public static Line PointsToLine(Point V, Point W)
+        //определение уравнения прямой по координатам двух точек
+
+        public Line(Point p1, Point p2)
         {
-            Line res = new Line
-            {
-                A = V.Y - W.Y,
-                B = W.X - V.X
-            };
-
-            res.C = -(V.X * res.A + V.Y * res.B);
-            return res;
+            this.a = p1.y - p2.y;
+            this.b = p2.x - p1.x;
+            this.c = -(p1.x * this.a + p1.y * this.b);
         }
 
-        //принадлежность точки прямой
-        public static bool AtLine(Point P, Line L)
+        //существование точки пресечения двух прямых
+        public bool CrossLine(Line L1)
         {
-            return (Basa.Comparison((L.A * P.X) + (L.B * P.Y) + L.C, 0) == 0);
+            double st;
+            st = this.a * L1.b - L1.a * this.b;
+            return (!Compare.RealEq(st, 0));
         }
 
-        //существование точки пересечения двух прямых
-        public static bool CrossLine(Line L1, Line L2)
+        //точка пересечения двух прямых
+        public Point PointCross(Line L1)
         {
-            return !(Basa.Comparison(L1.A * L2.B - L2.A * L1.B, 0) == 0);
+            double st;
+            Point pcr = new Point(0, 0);
+            st = this.a * L1.b - L1.a * this.b;
+            pcr.x = -(this.c * L1.b - L1.c * this.b) / st;
+            pcr.y = -(this.a * L1.c - L1.a * this.c) / st;
+            return pcr;
         }
 
-        //Точка пересечения двух прямых
-        public static Point Line2ToPoint(Line L1, Line L2)
+        //принадежность точки прямой
+        public bool AtSegm(Point p)
         {
-            //  if (!CrossLine(L1, L2)) return Point.ZeroPnt; //если точки пересечения не существует - вернуть null
-            //иначе выполняется следующий код
-            double st = L1.A * L2.B - L2.A * L1.B;
-            double x = (L1.C * L2.B - L2.C * L1.B) / st;
-            double y = (L1.A * L2.C - L2.A * L1.C) / st;
-            return new Point(x, y);
-        }
-        //проверка принадлежности точки отрезку 
-        public static bool AtSegm(Point A, Point B, Point P)
-        {
-            if (Point.EqPoint(A, B)) //точки A и B совпадают 
-            {
-                return Point.EqPoint(A, P); // совпадение точек A и P 
-            }
-            else
-            {
-                return (Basa.Comparison((P.X - A.X) * (B.Y - A.Y), (P.Y - A.Y) * (B.X - A.X)) == 0) &&
-                (((Basa.Comparison(P.X, A.X) > -1) && (Basa.Comparison(B.X, P.X) > -1)) ||
-                ((Basa.Comparison(P.Y, B.Y) > -1) && (Basa.Comparison(A.X, P.X) > -1)));
-            }
+            return (Compare.Equals(a * p.x + b * p.y + c, 0));
         }
 
-        //точка пересечения двух отрезков, если точки пересечения не существует, то возвращает точку (0,0)
-        public static Point FindPointCross(Point fL, Point fR, Point sL, Point sR)
-        {
-            Line L1 = PointsToLine(fL, fR); //прямая, проходящая через концы первого отрезка
-            Line L2 = PointsToLine(sL, sR); //прямая, проходящая через концы второго отрезка 
-            if (CrossLine(L1, L2)) //если точка пересечения существует
-                return Line2ToPoint(L1, L2); //вернуть точку пересечения
-            return Point.ZeroPnt;  //иначе вернуть точку (0,0)
-        }
-
-        //вспомогательная функция
-        //Отрезки находятся на одной прямой
-        //Проверака их взаиного расположения.
-        //Результат равен 0 - отрезки пересекаются в одной точке
-        //Результат равен 1 - не имеют точек пересечения
-        //Результат равен 2 - есть пересечения более чем в одной точке
-        public static int SegmLineCross(Point fL, Point fR, Point sL, Point sR)
-        {
-            double Minf = Basa.Min(Point.Dist(fL, Point.ZeroPnt), Point.Dist(fR, Point.ZeroPnt));
-            double Maxf = Basa.Max(Point.Dist(fL, Point.ZeroPnt), Point.Dist(fR, Point.ZeroPnt));
-            double Mins = Basa.Min(Point.Dist(sL, Point.ZeroPnt), Point.Dist(sR, Point.ZeroPnt));
-            double Maxs = Basa.Max(Point.Dist(sL, Point.ZeroPnt), Point.Dist(sR, Point.ZeroPnt));
-            if ((Basa.Comparison(Minf, Maxs) == 0) || (Basa.Comparison(Maxf, Mins) == 0))
-                return 0;
-            if ((Basa.Comparison(Mins, Maxf) > 0) || (Basa.Comparison(Minf, Maxs) > 0))
-                return 1;
-            return 2;
-        }
-        //определение взаимного положения двух отрезков на плоскости
-        /// <summary>
-        /// Результат равен 0 - пересекаются в одной точки и лежат на одной прямой
-        /// Результат равен 1 - не имеют пересечения и лежат на одной прямой 
-        /// Результат равен 2 - пересекаются более чем в одной точке и лежат на одной прямой
-        /// Результат равен 3 - лежат на параллельных прямых
-        /// Результат равен 4 - не лежат на одной прямой и не имеют точки пересечения
-        /// Результат равен 5 - отрезки не лежат на одной прямой и пересекаются на концах ОТРЕЗКОВ
-        /// Результат равен 6 - не лежат на одной прямой, точка пересечения пренадлежит одному из отрезков и является концом другого
-        /// Результат равен 7 - не лежат на одной прямой и пересекаютя в одной точке (не на концвх отрезков)
-        /// </summary>
-        /// <param name="fL">левый конец первого отрезка</param>
-        /// <param name="fR">правый конец первого отрезка</param>
-        /// <param name="sL">левый конец второго отрезка</param>
-        /// <param name="sR">правый конец вторго отркзка</param>
-        /// <returns></returns>
-        public static int SegmCross(Point fL, Point fR, Point sL, Point sR)
-        {
-            Point rs;
-            Line L1 = PointsToLine(fL, fR);
-            Line L2 = PointsToLine(sL, sR);
-            if (CrossLine(L1, L2))
-            {
-                rs = Line2ToPoint(L1, L2);
-
-                if (Point.EqPoint(rs, fL) || Point.EqPoint(rs, fR) || Point.EqPoint(rs, sL) || Point.EqPoint(rs, sR))
-                    return 5;
-
-                if (AtSegm(fL, fR, rs) && AtSegm(sL, sR, rs))
-                    return 7;
-
-                if (AtSegm(fL, fR, rs) || AtSegm(sL, sR, rs))
-                    return 6;
-
-                return 4;
-            }
-            else
-            {
-                if ((Basa.Comparison(L1.A * L2.B, L2.A * L1.B) == 0) && (!(Basa.Comparison(L1.C, L2.C) == 0)))
-                    return 3;
-                return SegmLineCross(fL, fR, sL, sR);
-            }
-        }
+        /*    6) точка пересечения двух отрезков
+              7) Даны два отрезка, заданные координатами своих концов, определить их взаимное расположение.Результат равен:
+                 0: отрезки пересекаются в одной точке и лежат на одной прямой;
+                 1: не имеют пересчения и лежат на одной прямой
+                 2: отрезки лежат на одной прямой и пересекаются более чем в одной точке
+                 3: отрезки лежат на параллельных прямых
+                 4: отрезки не лежат на одной прямой и не имеют точек пересечения
+                 5: отрезки не лежат на одной прямой и пересекаются на концах отрезков
+                 6: отрезки не лежат на одной прямой и пересекаются на концах отрезков и точка пересечения принадлежит одному из отрезков и является концом другого отрезка
+                 7: отрезки не лежат на одной прямой и пересекаются в одной точке, не совпадающей ни с одним концом отрезков
+        */
 
     }
-    //ТРЕУГОЛЬНИК
-    //1) проверить существование треугольника по 3 длинам сторон
-    //2) проверить существование треугольника по 3 координатам вешин 
-    //3) площадь треугольника ( 2 способа: формула герона, векторное произведение)
-    //4) периметр треугольника
-    //5) замечательные линии: медиана, биссектриса, высота
-    //6) на заданном множестве точек найти треугольник с меньшей площадью
-    class Triangle
+    class Segm
     {
-        //длины сторон
-        private double a;
-        private double b;
-        private double c;
-
-        //конструктор класса
-        public Triangle(double a, double b, double c)
+        Point fl, fr, sl, sr;
+        public Segm(Point fl, Point fr, Point sl, Point sr)
         {
-            this.a = a;
-            this.b = b;
-            this.c = c;
+            this.fl = fl;
+            this.fr = fr;
+            this.sl = sl;
+            this.sr = sr;
         }
-
-        //конструктор через точки
-        public Triangle(Point A, Point B, Point C)
+        //взаимное расположение отрезков, расположенных на параллельных прямых
+        public int SegmLineCross(Point sl, Point sr)
         {
-            this.a = Point.Dist(A, B);
-            this.b = Point.Dist(B, C);
-            this.c = Point.Dist(C, A);
-        }
-
-        //проверить существование треугольника по 3 длинам сторон
-        public static bool IsTrian(double a, double b, double c)
-        {
-            return (Basa.Comparison(a + b, c) > 0) && (Basa.Comparison(a + c, b) > 0) && (Basa.Comparison(c + b, a) > 0);
-        }
-
-        //проверить существование треугольника по 3 координатам вешин
-        public static bool IsTrian(Point A, Point B, Point C)
-        {
-            return (Basa.Comparison(A.x, B.x) != 0) && (Basa.Comparison(B.x, C.x) != 0) &&
-                   (Basa.Comparison(A.y, B.y) != 0) && (Basa.Comparison(B.y, C.y) != 0);
-        }
-        //периметр треугольника
-        public double Perimetr()
-        {
-            return (this.a + this.b + this.c);
-
-        }
-        //площадь треугольника формула герона
-        public double SqGeron()
-        {
-            double p = Perimetr() / 2;
-            return Math.Sqrt(p * (p - this.a) * (p - this.b) * (p - this.c));
-        }
-
-        //площадь треугольника через векторное произведение
-        public static double SqVector(Point A, Point B, Point C)
-        {
-            Vector AB = new Vector(A, B);
-            Vector AC = new Vector(A, C);
-            Vector S = Vector.VectorMultiplication(AB, AC);
-
-            return Math.Abs((S.z / 2));
-        }
-
-        //вычисление высоты, проведенной из вершины, противоположной стороне с длиной а
-        public double GetHeight(int cas)
-        {
-
-            {
-                if (1 == cas)
-                    return (2 * SqGeron() / a);
-                if (2 == cas)
-                    return (2 * SqGeron() / b);
-                if (3 == cas)
-                    return (2 * SqGeron() / c);
-
+            double minf, maxf, mins, maxs;
+            Point ZeroPnt = new Point(0, 0);
+            minf = Compare.RealMin(ZeroPnt.Dist(this.fl), ZeroPnt.Dist(this.fr));
+            maxf = Compare.RealMax(ZeroPnt.Dist(this.fl), ZeroPnt.Dist(this.fr));
+            mins = Compare.RealMin(ZeroPnt.Dist(sl), ZeroPnt.Dist(sr));
+            maxs = Compare.RealMax(ZeroPnt.Dist(sl), ZeroPnt.Dist(sr));
+            if (Compare.RealEq(minf, maxs) || Compare.RealEq(maxf, mins))
                 return 0;
-
-            }
-        }
-
-        //вычисление длины медианы, проведенной из вершины, противоположной стороне с длиной а
-        public double GetMed(int x)
-        {
-
-            double a2 = Math.Pow(this.a, 2);
-            double b2 = Math.Pow(this.b, 2);
-            double c2 = Math.Pow(this.c, 2);
-            if (1 == x)
-                return Math.Sqrt(2 * (b2 + c2) - a2) / 2;
-            if (2 == x)
-                return Math.Sqrt(2 * (a2 + c2) - b2) / 2;
-
-            if (3 == x)
-                return Math.Sqrt(2 * (a2 + b2) - c2) / 2;
-            return 0;
-        }
-
-        //вычисление биссектрисы, проведенной из вершины, противоположной стороне с длиной а
-        public double GetBis(int cas)
-        {
-            double p = Perimetr() / 2;
-            if (1 == cas)
-                return 2 * Math.Sqrt(this.b * this.c * p * (p - a)) / (b + c);
-            if (2 == cas)
-                return 2 * Math.Sqrt(this.b * this.a * p * (p - c)) / (b + a);
-            if (3 == cas)
-                return 2 * Math.Sqrt(this.a * this.c * p * (p - b)) / (a + c);
-            return 0;
-        }
-
-        //на заданном множестве точек найти треугольник с меньшей площадью
-        public static Triangle MinSqTrinagel(Point[] mas, int size)
-        {
-            Point A = mas[0];
-            Point B = mas[1];
-            Point C = mas[2];
-
-            //переменная - минимальная площадь
-            double SqMin = SqVector(A, B, C);
-
-            int i = 0;
-
-            while (i < size)
+            else
             {
-                int j = i + 1;
-
-                while (j < size)
-                {
-                    int t = j + 1;
-
-                    while (t < size)
-                    {
-                        double S = SqVector(mas[i], mas[j], mas[t]);
-                        if (Basa.Comparison(S, SqMin) < 0)
-                        {
-                            SqMin = S;
-                            A = mas[i];
-                            B = mas[j];
-                            C = mas[t];
-                        }
-                        t++;
-                    }
-                    j++;
-                }
-                i++;
+                if (Compare.RealMore(mins, maxf) || Compare.RealMore(minf, maxs))
+                    return 1;
+                else
+                    return 2;
             }
 
-            return new Triangle(A, B, C);
-
         }
 
-        //вывод информации о треугольнике
-        public void OutoutInfo()
+        //Взаимное расположение двух отрезков 
+        public int SegmCross(Point sl, Point sr)
         {
-            Console.WriteLine("a = {0}; b = {1}; c = {2}", this.a, this.b, this.c);
-        }
+            Line L1 = new Line(fl, fr);
+            Line L2 = new Line(sl, sr);
 
+            Compare num = new Compare();
+            num.x = L1.a * L2.b;
+            num.y = L1.c / L1.b;
+
+            Point p = new Point(0, 0);
+
+            if (L1.CrossLine(L2))  //если отрезки пересекаются
+            {
+                Point crossPoint = L1.PointCross(L2);
+
+                if ((crossPoint.x == fl.x && crossPoint.y == fl.y || crossPoint.x == fr.x && crossPoint.y == fr.y) && (crossPoint.x == sl.x && crossPoint.y == sl.y || crossPoint.x == sr.x && crossPoint.y == sr.y))
+                    return 5; //не лежат на одной прямой, пересекаются на концах 
+                else
+                {
+                    if ((crossPoint.x == fl.x && crossPoint.y == fl.y || crossPoint.x == fr.x && crossPoint.y == fr.y) && crossPoint.BelongsToSegment(sl, sr) || (crossPoint.x == sl.x && crossPoint.y == sl.y) || (crossPoint.x == sr.x && crossPoint.y == sr.y) && crossPoint.BelongsToSegment(fl, fr))
+                        return 6;   //не лежат на одной прямой, пересекаются в конце одного и не на конце второго 
+                    else
+                    {
+                        if (crossPoint.BelongsToSegment(fl, fr) && crossPoint.BelongsToSegment(sl, sr))
+                            return 7;   //не лежат на одной прямой, пересекаются не на концах +
+                        else
+                        {
+                            return 4;   //не лежат на одной прямой, и не имеют точки пересечения +
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (Compare.RealEq(num.x, L2.a * L1.b) && (!Compare.RealEq(num.y, L2.c / L2.b)))
+                    return 3;  //лежат на параллельных прямых +
+                else
+                    return this.SegmLineCross(sl, sr);  //лежат на одной прямой +
+            }
+        }
     }
 
-    //основная программа
+
+
     class Program
-    {     
-        //главная функция программы
+    {
+
         static void Main(string[] args)
         {
-            Point A = new Point(5, 2);
-            Point B = new Point(7, 2);
+            Point p1 = new Point(2, 1);
+            Point p2 = new Point(7, 1);
+            Point p3 = new Point(7, 1);
+            Point p4 = new Point(11, 1);
+            Segm s1 = new Segm(p1, p2, p3, p4);
+            Console.WriteLine("Отрезки с координатами p1 = {0:0},{1:0}  p2 = {2:0},{3:0} p3 = {4:0},{5:0} p4 = {6:0},{7:0}", p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y);
+            Console.WriteLine("Расположение двух отрезков: {0:G}", s1.SegmCross(p3, p4));
 
-            Line l = new Line();
-        //    l = Line.PointsToLine(A, B);
 
-            //if (Line.AtLine(new Point(2, 3), l))
-            if(Line.AtSegm(A, B, new Point(6, 2)))
-            {
-                Console.WriteLine("Nikita pidors");
-            }
-           // Console.WriteLine("Nikita pidors");
-            Console.WriteLine(l);
+            Point p5 = new Point(2, 2);
+            Point p6 = new Point(6, 2);
+            Point p7 = new Point(9, 2);
+            Point p8 = new Point(13, 2);
+            Segm s2 = new Segm(p5, p6, p7, p8);
+            Console.WriteLine("Отрезки с координатами p1 = {0:0},{1:0}  p2 = {2:0},{3:0} p3 = {4:0},{5:0} p4 = {6:0},{7:0}", p5.x, p5.y, p6.x, p6.y, p7.x, p7.y, p8.x, p8.y);
+            Console.WriteLine("Расположение двух отрезков: {0:G}", s2.SegmCross(p7, p8));
+
+            Point p9 = new Point(2, 2);
+            Point p10 = new Point(8, 2);
+            Point p11 = new Point(6, 2);
+            Point p12 = new Point(11, 2);
+            Segm s3 = new Segm(p9, p10, p11, p12);
+            Console.WriteLine("Отрезки с координатами p1 = {0:0},{1:0}  p2 = {2:0},{3:0} p3 = {4:0},{5:0} p4 = {6:0},{7:0}", p9.x, p9.y, p10.x, p10.y, p11.x, p11.y, p12.x, p12.y);
+            Console.WriteLine("Расположение двух отрезков: {0:G}", s3.SegmCross(p11, p12));
+
+            Point p13 = new Point(1, 2);
+            Point p14 = new Point(4, 2);
+            Point p15 = new Point(2, 1);
+            Point p16 = new Point(4, 1);
+            Segm s4 = new Segm(p13, p14, p15, p16);
+            Console.WriteLine("Отрезки с координатами p1 = {0:0},{1:0}  p2 = {2:0},{3:0} p3 = {4:0},{5:0} p4 = {6:0},{7:0}", p13.x, p13.y, p14.x, p14.y, p15.x, p15.y, p16.x, p16.y);
+            Console.WriteLine("Расположение двух отрезков: {0:G}", s4.SegmCross(p15, p16));
+
+            Point p17 = new Point(1, 2);
+            Point p18 = new Point(3, 4);
+            Point p19 = new Point(4, 1);
+            Point p20 = new Point(6, 2);
+            Segm s5 = new Segm(p17, p18, p19, p20);
+            Console.WriteLine("Отрезки с координатами p1 = {0:0},{1:0}  p2 = {2:0},{3:0} p3 = {4:0},{5:0} p4 = {6:0},{7:0}", p17.x, p17.y, p18.x, p18.y, p19.x, p19.y, p20.x, p20.y);
+            Console.WriteLine("Расположение двух отрезков: {0:G}", s5.SegmCross(p19, p20));
+
+            Point p21 = new Point(1, 2);
+            Point p22 = new Point(1, 6);
+            Point p23 = new Point(1, 2);
+            Point p24 = new Point(7, 2);
+            Segm s6 = new Segm(p21, p22, p23, p24);
+            Console.WriteLine("Отрезки с координатами p1 = {0:0},{1:0}  p2 = {2:0},{3:0} p3 = {4:0},{5:0} p4 = {6:0},{7:0}", p21.x, p21.y, p22.x, p22.y, p23.x, p23.y, p24.x, p24.y);
+            Console.WriteLine("Расположение двух отрезков: {0:G}", s6.SegmCross(p23, p24));
+
+            Point p25 = new Point(1, 3);
+            Point p26 = new Point(4, 6);
+            Point p27 = new Point(6, 1);
+            Point p28 = new Point(3, 5);
+            Segm s7 = new Segm(p25, p26, p27, p28);
+            Console.WriteLine("Отрезки с координатами p1 = {0:0},{1:0}  p2 = {2:0},{3:0} p3 = {4:0},{5:0} p4 = {6:0},{7:0}", p25.x, p25.y, p26.x, p26.y, p27.x, p27.y, p28.x, p28.y);
+            Console.WriteLine("Расположение двух отрезков: {0:G}", s7.SegmCross(p27, p28));
+
+            Point p29 = new Point(2, 2);
+            Point p30 = new Point(6, 4);
+            Point p31 = new Point(3, 1);
+            Point p32 = new Point(5, 5);
+            Segm s8 = new Segm(p29, p30, p31, p32);
+            Console.WriteLine("Отрезки с координатами p1 = {0:0},{1:0}  p2 = {2:0},{3:0} p3 = {4:0},{5:0} p4 = {6:0},{7:0}", p29.x, p29.y, p30.x, p30.y, p31.x, p31.y, p32.x, p32.y);
+            Console.WriteLine("Расположение двух отрезков: {0:G}", s8.SegmCross(p31, p32));
             Console.Read();
-
-            
-
         }
     }
 }
