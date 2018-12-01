@@ -300,7 +300,7 @@ namespace ConsoleApp3
         */
 
     }
-    class Segm
+    class Segm // отрезок
     {
         Point fl, fr, sl, sr;
         public Segm(Point fl, Point fr, Point sl, Point sr)
@@ -381,71 +381,92 @@ namespace ConsoleApp3
 
         static void Main(string[] args)
         {
-            Point p1 = new Point(2, 1);
-            Point p2 = new Point(7, 1);
-            Point p3 = new Point(7, 1);
-            Point p4 = new Point(11, 1);
-            Segm s1 = new Segm(p1, p2, p3, p4);
-            Console.WriteLine("Отрезки с координатами p1 = {0:0},{1:0}  p2 = {2:0},{3:0} p3 = {4:0},{5:0} p4 = {6:0},{7:0}", p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y);
-            Console.WriteLine("Расположение двух отрезков: {0:G}", s1.SegmCross(p3, p4));
+            //Point p1 = new Point(2, 1);
+            //Point p2 = new Point(7, 1);
+            //Point p3 = new Point(7, 1);
+            //Point p4 = new Point(11, 1);
+            //Segm s1 = new Segm(p1, p2, p3, p4);
+            //Console.WriteLine("Отрезки с координатами p1 = {0:0},{1:0}  p2 = {2:0},{3:0} p3 = {4:0},{5:0} p4 = {6:0},{7:0}", p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y);
+            //Console.WriteLine("Расположение двух отрезков: {0:G}", s1.SegmCross(p3, p4));
 
 
-            Point p5 = new Point(2, 2);
-            Point p6 = new Point(6, 2);
-            Point p7 = new Point(9, 2);
-            Point p8 = new Point(13, 2);
-            Segm s2 = new Segm(p5, p6, p7, p8);
-            Console.WriteLine("Отрезки с координатами p1 = {0:0},{1:0}  p2 = {2:0},{3:0} p3 = {4:0},{5:0} p4 = {6:0},{7:0}", p5.x, p5.y, p6.x, p6.y, p7.x, p7.y, p8.x, p8.y);
-            Console.WriteLine("Расположение двух отрезков: {0:G}", s2.SegmCross(p7, p8));
+            //Point p5 = new Point(2, 2);
+            //Point p6 = new Point(6, 2);
+            //Point p7 = new Point(9, 2);
+            //Point p8 = new Point(13, 2);
+            //Segm s2 = new Segm(p5, p6, p7, p8);
+            //Console.WriteLine("Отрезки с координатами p1 = {0:0},{1:0}  p2 = {2:0},{3:0} p3 = {4:0},{5:0} p4 = {6:0},{7:0}", p5.x, p5.y, p6.x, p6.y, p7.x, p7.y, p8.x, p8.y);
+            //Console.WriteLine("Расположение двух отрезков: {0:G}", s2.SegmCross(p7, p8));
 
-            Point p9 = new Point(2, 2);
-            Point p10 = new Point(8, 2);
-            Point p11 = new Point(6, 2);
-            Point p12 = new Point(11, 2);
-            Segm s3 = new Segm(p9, p10, p11, p12);
-            Console.WriteLine("Отрезки с координатами p1 = {0:0},{1:0}  p2 = {2:0},{3:0} p3 = {4:0},{5:0} p4 = {6:0},{7:0}", p9.x, p9.y, p10.x, p10.y, p11.x, p11.y, p12.x, p12.y);
-            Console.WriteLine("Расположение двух отрезков: {0:G}", s3.SegmCross(p11, p12));
+            //Point p9 = new Point(2, 2);
+            //Point p10 = new Point(8, 2);
+            //Point p11 = new Point(6, 2);
+            //Point p12 = new Point(11, 2);
+            //Segm s3 = new Segm(p9, p10, p11, p12);
+            //Console.WriteLine("Отрезки с координатами p1 = {0:0},{1:0}  p2 = {2:0},{3:0} p3 = {4:0},{5:0} p4 = {6:0},{7:0}", p9.x, p9.y, p10.x, p10.y, p11.x, p11.y, p12.x, p12.y);
+            //Console.WriteLine("Расположение двух отрезков: {0:G}", s3.SegmCross(p11, p12));
 
-            Point p13 = new Point(1, 2);
-            Point p14 = new Point(4, 2);
-            Point p15 = new Point(2, 1);
-            Point p16 = new Point(4, 1);
-            Segm s4 = new Segm(p13, p14, p15, p16);
-            Console.WriteLine("Отрезки с координатами p1 = {0:0},{1:0}  p2 = {2:0},{3:0} p3 = {4:0},{5:0} p4 = {6:0},{7:0}", p13.x, p13.y, p14.x, p14.y, p15.x, p15.y, p16.x, p16.y);
-            Console.WriteLine("Расположение двух отрезков: {0:G}", s4.SegmCross(p15, p16));
+            //Point p13 = new Point(1, 2);
+            //Point p14 = new Point(4, 2);
+            //Point p15 = new Point(2, 1);
+            //Point p16 = new Point(4, 1);
+            //Segm s4 = new Segm(p13, p14, p15, p16);
+            //Console.WriteLine("Отрезки с координатами p1 = {0:0},{1:0}  p2 = {2:0},{3:0} p3 = {4:0},{5:0} p4 = {6:0},{7:0}", p13.x, p13.y, p14.x, p14.y, p15.x, p15.y, p16.x, p16.y);
+            //Console.WriteLine("Расположение двух отрезков: {0:G}", s4.SegmCross(p15, p16));
 
-            Point p17 = new Point(1, 2);
-            Point p18 = new Point(3, 4);
-            Point p19 = new Point(4, 1);
-            Point p20 = new Point(6, 2);
-            Segm s5 = new Segm(p17, p18, p19, p20);
-            Console.WriteLine("Отрезки с координатами p1 = {0:0},{1:0}  p2 = {2:0},{3:0} p3 = {4:0},{5:0} p4 = {6:0},{7:0}", p17.x, p17.y, p18.x, p18.y, p19.x, p19.y, p20.x, p20.y);
-            Console.WriteLine("Расположение двух отрезков: {0:G}", s5.SegmCross(p19, p20));
+            //Point p17 = new Point(1, 2);
+            //Point p18 = new Point(3, 4);
+            //Point p19 = new Point(4, 1);
+            //Point p20 = new Point(6, 2);
+            //Segm s5 = new Segm(p17, p18, p19, p20);
+            //Console.WriteLine("Отрезки с координатами p1 = {0:0},{1:0}  p2 = {2:0},{3:0} p3 = {4:0},{5:0} p4 = {6:0},{7:0}", p17.x, p17.y, p18.x, p18.y, p19.x, p19.y, p20.x, p20.y);
+            //Console.WriteLine("Расположение двух отрезков: {0:G}", s5.SegmCross(p19, p20));
 
-            Point p21 = new Point(1, 2);
-            Point p22 = new Point(1, 6);
-            Point p23 = new Point(1, 2);
-            Point p24 = new Point(7, 2);
-            Segm s6 = new Segm(p21, p22, p23, p24);
-            Console.WriteLine("Отрезки с координатами p1 = {0:0},{1:0}  p2 = {2:0},{3:0} p3 = {4:0},{5:0} p4 = {6:0},{7:0}", p21.x, p21.y, p22.x, p22.y, p23.x, p23.y, p24.x, p24.y);
-            Console.WriteLine("Расположение двух отрезков: {0:G}", s6.SegmCross(p23, p24));
+            //Point p21 = new Point(1, 2);
+            //Point p22 = new Point(1, 6);
+            //Point p23 = new Point(1, 2);
+            //Point p24 = new Point(7, 2);
+            //Segm s6 = new Segm(p21, p22, p23, p24);
+            //Console.WriteLine("Отрезки с координатами p1 = {0:0},{1:0}  p2 = {2:0},{3:0} p3 = {4:0},{5:0} p4 = {6:0},{7:0}", p21.x, p21.y, p22.x, p22.y, p23.x, p23.y, p24.x, p24.y);
+            //Console.WriteLine("Расположение двух отрезков: {0:G}", s6.SegmCross(p23, p24));
 
-            Point p25 = new Point(1, 3);
-            Point p26 = new Point(4, 6);
-            Point p27 = new Point(6, 1);
-            Point p28 = new Point(3, 5);
-            Segm s7 = new Segm(p25, p26, p27, p28);
-            Console.WriteLine("Отрезки с координатами p1 = {0:0},{1:0}  p2 = {2:0},{3:0} p3 = {4:0},{5:0} p4 = {6:0},{7:0}", p25.x, p25.y, p26.x, p26.y, p27.x, p27.y, p28.x, p28.y);
-            Console.WriteLine("Расположение двух отрезков: {0:G}", s7.SegmCross(p27, p28));
+            //Point p25 = new Point(1, 3);
+            //Point p26 = new Point(4, 6);
+            //Point p27 = new Point(6, 1);
+            //Point p28 = new Point(3, 5);
+            //Segm s7 = new Segm(p25, p26, p27, p28);
+            //Console.WriteLine("Отрезки с координатами p1 = {0:0},{1:0}  p2 = {2:0},{3:0} p3 = {4:0},{5:0} p4 = {6:0},{7:0}", p25.x, p25.y, p26.x, p26.y, p27.x, p27.y, p28.x, p28.y);
+            //Console.WriteLine("Расположение двух отрезков: {0:G}", s7.SegmCross(p27, p28));
 
-            Point p29 = new Point(2, 2);
-            Point p30 = new Point(6, 4);
-            Point p31 = new Point(3, 1);
-            Point p32 = new Point(5, 5);
-            Segm s8 = new Segm(p29, p30, p31, p32);
-            Console.WriteLine("Отрезки с координатами p1 = {0:0},{1:0}  p2 = {2:0},{3:0} p3 = {4:0},{5:0} p4 = {6:0},{7:0}", p29.x, p29.y, p30.x, p30.y, p31.x, p31.y, p32.x, p32.y);
-            Console.WriteLine("Расположение двух отрезков: {0:G}", s8.SegmCross(p31, p32));
-            Console.Read();
+            //Point p29 = new Point(2, 2);
+            //Point p30 = new Point(6, 4);
+            //Point p31 = new Point(3, 1);
+            //Point p32 = new Point(5, 5);
+            //Segm s8 = new Segm(p29, p30, p31, p32);
+            //Console.WriteLine("Отрезки с координатами p1 = {0:0},{1:0}  p2 = {2:0},{3:0} p3 = {4:0},{5:0} p4 = {6:0},{7:0}", p29.x, p29.y, p30.x, p30.y, p31.x, p31.y, p32.x, p32.y);
+            //Console.WriteLine("Расположение двух отрезков: {0:G}", s8.SegmCross(p31, p32));
+
+            Point p1 = new Point(0, 0);
+            Point p2 = new Point(1, 1);
+            Point p3 = new Point(0, 1);
+            Point p4 = new Point(1, 0);
+            Line L1 = new Line(p1, p2);
+            Line L2 = new Line(p3, p4);
+            Point p = new Point(0, 0);
+            if (L1.CrossLine(L2))
+            {
+                p = L1.PointCross(L2);
+                Console.Write(p.x + " " + p.y);
+            }
+            Console.ReadLine();
+
+            // Построить две прямых по коор двух точек
+            //1 - (0, 0 ) 
+            //2 - (1, 1)
+
+            //1 - (0, 1)
+            //2- (1, 0)
+            //провперить пересикаются ли эти прямые, если пересекаются найти точку пересечения
         }
     }
 }
