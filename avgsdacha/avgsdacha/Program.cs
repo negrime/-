@@ -449,6 +449,8 @@ namespace avg
 
     }
 
+
+
     class Polygon
     {
         public enum PointInPolygon //Положение точки в многоугольнике
@@ -623,7 +625,6 @@ namespace avg
                 cos = Cos(b1, a1, c1);
                 //Console.WriteLine(cos);
                 summAng += Math.Acos(cos);
-
             }
 
             LenTring(ref a1, ref b1, ref c1, A[n - 1], A[n - 2], A[0]);
@@ -640,6 +641,9 @@ namespace avg
             return Basa.Comparison(summAng, Math.PI * (n - 2)) == 0;
         }
     }
+
+
+
 
 
     //ВЫПУКЛАЯ ОБОЛОЧКА
